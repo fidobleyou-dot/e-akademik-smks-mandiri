@@ -1,0 +1,56 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function profile() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function staff() {
+      return signedIn() && profile().role in ['admin','guru','wali','operator'];
+    }
+
+    function student() {
+      return signedIn() && profile().role == 'siswa';
+    }
+
+    match /users/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || staff());
+      allow write: if signedIn() && profile().role == 'admin';
+    }
+
+    match /schoolData/{col}/items/{id} {
+      // Guru/Wali/Admin/operator may manage academic data.
+      allow read, write: if staff();
+
+      // Students may only read their own student document.
+      allow read: if student() && col == 'students' && id == String(profile().studentId);
+
+      // Students may read subjects so their dashboard can display subject names.
+      allow read: if student() && col == 'subjects';
+
+      // Students may read only records belonging to their own student id.
+      allow read: if student()
+        && col in ['grades','behavior','attendance','extra']
+        && resource.data.sid == String(profile().studentId);
+
+      // Students never write academic data.
+      allow write: if false;
+    }
+
+    match /schoolData/settings {
+      allow read: if signedIn();
+      allow write: if staff();
+    }
+
+    match /profileRequests/{requestId} {
+      allow create: if student() && request.resource.data.uid == request.auth.uid;
+      allow read: if staff() || (student() && resource.data.uid == request.auth.uid);
+      allow update, delete: if staff();
+    }
+  }
+}

@@ -1,16 +1,18 @@
-# e-Akademik SMKS Mandiri — Offline / GitHub Pages
+# e-Akademik SMKS Mandiri — Multi User V8
 
-Versi ini bekerja tanpa API AI. Data disimpan di browser/perangkat menggunakan localStorage.
+Perubahan V8:
+- Siswa hanya melihat data akademik miliknya sendiri.
+- Nilai, kehadiran, perilaku/sikap, prestasi/ekstrakurikuler, kenaikan kelas, dan data akademik hanya dapat dikelola Guru/Wali Kelas/Admin.
+- Siswa hanya dapat mengajukan perubahan data diri; perubahan menunggu persetujuan Admin.
+- Data diri siswa ditambah alamat lengkap dan nama wali.
+- Admin/Guru/Wali Kelas dapat mengisi alamat wali dan mengunggah tanda tangan wali.
+- Tanda tangan wali tampil pada cetak raport.
+- Raport menampilkan nama, NISN, NIS, kelas/rombel, jurusan, tempat/tanggal lahir, jenis kelamin, alamat, nama orang tua/wali, nilai, kehadiran, perilaku, prestasi, serta tanda tangan Orang Tua/Wali, Wali Kelas, dan Kepala Sekolah.
+- Password tetap dapat diubah oleh pemilik akun.
 
-## Offline
-- Ekstrak ZIP dan buka `index.html`.
-- Login: **admin** / **admin123**.
-- Data siswa, guru, mapel, nilai, perilaku, kehadiran, prestasi, kenaikan/kelulusan, pengaturan dan raport tersimpan di perangkat.
-- Gunakan **Backup** untuk membuat JSON dan **Restore** untuk memulihkan.
+Akun awal:
+- Admin: admin / admin123
+- Siswa: username NISN/NIS, password 123456
+- Guru/Wali Kelas: username sesuai akun, password sesuai yang dibuat admin (atau 123456 untuk akun yang dibuat otomatis dari data guru).
 
-Service Worker/PWA tidak dapat didaftarkan dari `file://`, tetapi aplikasi tetap dapat dipakai offline. Untuk PWA/offline cache, gunakan localhost atau GitHub Pages.
-
-## GitHub Pages
-Upload `index.html`, `manifest.json`, dan `sw.js` ke root repository, lalu aktifkan GitHub Pages. Setelah pertama kali dibuka online, application shell akan dicache sehingga aplikasi dapat dibuka kembali saat offline.
-
-**Catatan:** GitHub Pages bukan database. Data tetap lokal pada browser/perangkat. Backup JSON sangat dianjurkan.
+Catatan: versi ini masih berbasis localStorage/offline seperti versi sebelumnya. Untuk penggunaan banyak perangkat secara bersamaan diperlukan database/server terpusat.

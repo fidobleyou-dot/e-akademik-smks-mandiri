@@ -56,7 +56,7 @@ button{background:#102a43}.success{background:#17a673}.danger{background:#d64545
 <label>Username<input id="loginUser" autocomplete="username" placeholder="Username"></label>
 <label>Password<input id="loginPass" type="password" autocomplete="current-password" placeholder="Password"></label>
 <button onclick="loginLocal()">Masuk ke Sistem</button>
-<div class="login-note">Akun awal: <b>admin</b> / <b>admin123</b><br>Login ini hanya untuk penggunaan lokal/offline.</div>
+<div class="login-note"><b>Admin:</b> admin / admin123<br><b>Siswa:</b> username = NISN/NIS, password awal = 123456<br><b>Guru/Wali Kelas:</b> username = NIP (atau akun yang dibuat admin), password awal = 123456<br><span style="color:#64748b">Siswa dapat mengubah password sendiri. Perubahan data profil harus menunggu persetujuan admin.</span></div>
 </div></div></div>
 <header>
 <button class="mobile-menu" onclick="toggleMenu()">☰</button>
@@ -67,7 +67,7 @@ button{background:#102a43}.success{background:#17a673}.danger{background:#d64545
 <aside id="sideNav"><button class="navbtn active" onclick="show('dashboard',this)">🏠 <span>Dashboard</span></button><button class="navbtn" onclick="show('students',this)">👨‍🎓 <span>Data Siswa</span></button><button class="navbtn" onclick="show('classes',this)">🏫 <span>Kelas 1–12</span></button><button class="navbtn" onclick="show('teachers',this)">👨‍🏫 <span>Guru</span></button><button class="navbtn" onclick="show('subjects',this)">📚 <span>Mata Pelajaran</span></button><button class="navbtn" onclick="show('grades',this)">📝 <span>Nilai</span></button><button class="navbtn" onclick="show('behavior',this)">⭐ <span>Perilaku</span></button><button class="navbtn" onclick="show('attendance',this)">📅 <span>Kehadiran</span></button><button class="navbtn" onclick="show('extra',this)">🏆 <span>Prestasi/Ekstra</span></button><button class="navbtn" onclick="show('promotion',this)">↗️ <span>Kenaikan/Kelulusan</span></button><button class="navbtn" onclick="show('reportPage',this)">🖨️ <span>Raport</span></button><button class="navbtn" onclick="show('settings',this)">⚙️ <span>Pengaturan</span></button><button class="navbtn" onclick="backup()">💾 <span>Backup</span></button><button class="navbtn" onclick="logoutLocal()">🚪 <span>Keluar</span></button><button class="navbtn" onclick="restore()">📥 <span>Restore</span></button></aside>
 <main>
 <section id="dashboard" class="page active"><div class="hero"><h2>Selamat Datang di e-Akademik</h2><div>Kelola data peserta didik Kelas X–XII, semester Ganjil/Genap, nilai, kehadiran, prestasi, kenaikan kelas, dan raport dalam satu aplikasi.</div><div id="activePeriod" style="margin-top:12px;font-size:12px;opacity:.9"></div></div><div class="stats"><div class="stat"><span>Total Siswa</span><b id="cStudents">0</b></div><div class="stat"><span>Guru</span><b id="cTeachers">0</b></div><div class="stat"><span>Mata Pelajaran</span><b id="cSubjects">0</b></div><div class="stat"><span>Data Nilai</span><b id="cGrades">0</b></div><div class="stat"><span>Catatan Perilaku</span><b id="cBehavior">0</b></div></div><div class="school-cards"><div class="card school-hero"><h3>🏫 SMKS MANDIRI BANDAR AGUNG</h3><p class="slogan">“Berkarakter • Kompeten • Kreatif • Siap Kerja dan Berwirausaha”</p><p><b>Alamat:</b> Jl. Panjang Sribhawono Km. 55, Bandar Agung, Kec. Bandar Sribhawono, Kab. Lampung Timur, Lampung 34199</p></div><div class="card"><h3>🎯 Visi Sekolah</h3><p>Menjadi sekolah kejuruan yang menghasilkan lulusan berkarakter, kompeten, mandiri, berwawasan teknologi, serta mampu bersaing di dunia kerja dan berwirausaha.</p></div><div class="card"><h3>🚀 Misi Sekolah</h3><ol><li>Menyelenggarakan pembelajaran yang aktif, inovatif, dan sesuai kebutuhan dunia kerja.</li><li>Membentuk peserta didik yang disiplin, bertanggung jawab, berkarakter, dan berakhlak baik.</li><li>Meningkatkan kompetensi teknologi dan keterampilan sesuai bidang keahlian.</li><li>Menumbuhkan jiwa kewirausahaan dan kemandirian.</li><li>Membangun kerja sama dengan dunia usaha dan dunia industri.</li></ol></div><div class="card"><h3>🎓 Program Keahlian</h3><div class="program-list"><div>1. Akuntansi dan Keuangan Lembaga</div><div>2. Bisnis Daring dan Pemasaran (Pemasaran)</div><div>3. Teknik Komputer dan Jaringan / Multimedia</div></div></div><div class="card"><h3>🗓️ Timeline Sekolah</h3><div class="timeline"><div><b>Awal Tahun Pelajaran</b><span>Pendataan siswa, persiapan pembelajaran, dan kegiatan awal sekolah.</span></div><div><b>Semester Ganjil</b><span>Pembelajaran, praktik kejuruan, asesmen, kegiatan sekolah, dan evaluasi.</span></div><div><b>Semester Genap</b><span>Pembelajaran lanjutan, praktik/PKL, asesmen, serta persiapan kenaikan kelas dan kelulusan.</span></div><div><b>Akhir Tahun Pelajaran</b><span>Pengolahan nilai, rapor, kenaikan kelas/kelulusan, dan evaluasi program.</span></div></div></div></div><div class="card"><h3>Ringkasan Akademik</h3><div id="dashInfo"></div></div></section>
-<section id="students" class="page"><h2 class="title">Data Siswa</h2><p class="sub">Database peserta didik Kelas X–XII.</p><div class="card"><div class="grid"><label>Nama Lengkap<input id="sName"></label><label>NISN<input id="sNisn"></label><label>NIS<input id="sNis"></label><label>Jenis Kelamin<select id="sGender"><option>Laki-laki</option><option>Perempuan</option></select></label><label>Kelas<select id="sLevel"></select></label><label>Rombel<input id="sRombel" placeholder="Contoh: TKJ 1"></label><label>Jurusan<input id="sMajor" placeholder="Contoh: TKJ/Pemasaran"></label><label>Tempat Lahir<input id="sBirthPlace"></label><label>Tanggal Lahir<input id="sBirthDate" type="date"></label><label>Nama Orang Tua/Wali<input id="sParent"></label><label>No. HP Wali<input id="sPhone"></label><label>Status<select id="sStatus"><option>Aktif</option><option>Pindah</option><option>Lulus</option><option>Nonaktif</option></select></label></div><div class="actions"><button class="success" onclick="addStudent()">+ Simpan Siswa</button><button class="secondary" onclick="clearForm('students')">Bersihkan</button></div></div><div class="card"><div class="filter"><input id="studentSearch" placeholder="Cari nama/NISN/NIS..." oninput="renderStudents()"><select id="studentLevelFilter" onchange="renderStudents()"></select></div><div class="tablewrap"><table><thead><tr><th>No</th><th>Nama</th><th>NISN</th><th>NIS</th><th>Kelas</th><th>Jurusan</th><th>JK</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="studentTable"></tbody></table></div></div></section>
+<section id="students" class="page"><h2 class="title">Data Siswa</h2><p class="sub">Database peserta didik Kelas X–XII.</p><div class="card"><div class="grid"><label>Nama Lengkap<input id="sName"></label><label>NISN<input id="sNisn"></label><label>NIS<input id="sNis"></label><label>Jenis Kelamin<select id="sGender"><option>Laki-laki</option><option>Perempuan</option></select></label><label>Kelas<select id="sLevel"></select></label><label>Rombel<input id="sRombel" placeholder="Contoh: TKJ 1"></label><label>Jurusan<input id="sMajor" placeholder="Contoh: TKJ/Pemasaran"></label><label>Tempat Lahir<input id="sBirthPlace"></label><label>Tanggal Lahir<input id="sBirthDate" type="date"></label><label>Nama Orang Tua/Wali<input id="sParent"></label><label>Alamat Lengkap<textarea id="sAddress" rows="2" placeholder="Dusun/RT/RW/Desa/Kecamatan/Kabupaten"></textarea></label><label>No. HP Wali<input id="sPhone"></label><label>Status<select id="sStatus"><option>Aktif</option><option>Pindah</option><option>Lulus</option><option>Nonaktif</option></select></label></div><div class="actions"><button class="success" onclick="addStudent()">+ Simpan Siswa</button><button class="secondary" onclick="clearForm('students')">Bersihkan</button></div></div><div class="card"><div class="filter"><input id="studentSearch" placeholder="Cari nama/NISN/NIS..." oninput="renderStudents()"><select id="studentLevelFilter" onchange="renderStudents()"></select></div><div class="tablewrap"><table><thead><tr><th>No</th><th>Nama</th><th>NISN</th><th>NIS</th><th>Kelas</th><th>Jurusan</th><th>JK</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="studentTable"></tbody></table></div></div></section>
 <section id="classes" class="page"><h2 class="title">Kelas X–XII</h2><p class="sub">Rekap jumlah peserta didik berdasarkan Kelas X, XI, dan XII.</p><div class="card"><div class="tablewrap"><table><thead><tr><th>Kelas</th><th>Jumlah Siswa</th><th>Aktif</th><th>Rata-rata Nilai</th><th>Catatan</th></tr></thead><tbody id="classTable"></tbody></table></div></div></section>
 <section id="teachers" class="page"><h2 class="title">Data Guru</h2><p class="sub">Kelola guru/wali kelas/pengampu.</p><div class="card"><div class="grid"><label>Nama Guru<input id="tName"></label><label>NIP/NUPTK<input id="tNip"></label><label>Mata Pelajaran<input id="tSubject"></label><label>Peran<select id="tRole"><option>Guru Mapel</option><option>Wali Kelas</option><option>BK</option><option>Guru Piket</option><option>Operator</option></select></label></div><div class="actions"><button class="success" onclick="addTeacher()">+ Simpan Guru</button></div></div><div class="card"><div class="tablewrap"><table><thead><tr><th>No</th><th>Nama</th><th>NIP/NUPTK</th><th>Mapel</th><th>Peran</th><th>Aksi</th></tr></thead><tbody id="teacherTable"></tbody></table></div></div></section>
 <section id="subjects" class="page"><h2 class="title">Mata Pelajaran</h2><div class="card"><div class="grid"><label>Nama Mapel<input id="subName"></label><label>Kode<input id="subCode"></label><label>Kelompok<select id="subGroup"><option>Umum</option><option>Kejuruan</option><option>Muatan Lokal</option><option>Pilihan</option></select></label></div><div class="actions"><button class="success" onclick="addSubject()">+ Simpan Mapel</button></div></div><div class="card"><div class="tablewrap"><table><thead><tr><th>No</th><th>Kode</th><th>Mapel</th><th>Kelompok</th><th>Aksi</th></tr></thead><tbody id="subjectTable"></tbody></table></div></div></section>
@@ -239,4 +239,441 @@ if('serviceWorker' in navigator && location.protocol!=='file:'){navigator.servic
 })();
 </script>
 
+
+<style id="auth-v2-style">
+.authv2-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#eaf6ff;color:#075b92;font-weight:800;font-size:12px}
+.authv2-box{background:#fff;border:1px solid #dbe7f2;border-radius:15px;padding:18px;margin:12px 0;box-shadow:0 7px 22px #123b5d12}
+.authv2-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.authv2-pending{border-left:5px solid #f59e0b;padding:12px;background:#fffaf0;border-radius:10px;margin:8px 0}
+.authv2-ok{border-left:5px solid #18a957;padding:12px;background:#f2fff7;border-radius:10px;margin:8px 0}
+.authv2-danger{color:#b91c1c;font-weight:800}
+#authv2UserBar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-left:auto}
+.authv2-muted{color:#64748b;font-size:12px}
+@media(max-width:700px){#authv2UserBar{margin-left:0}}
+</style>
+
+<!-- AUTH V2: multi-account, role-based access, password change, approval workflow -->
+<section id="authv2Student" class="page">
+  <h2 class="title">Dashboard Siswa</h2>
+  <p class="sub">Anda hanya dapat melihat data akademik milik akun Anda sendiri.</p>
+  <div class="authv2-box" id="authv2StudentSummary"></div>
+  <div class="authv2-box">
+    <h3>📊 Akademik Saya</h3>
+    <div id="authv2StudentAcademic"></div>
+  </div>
+  <div class="authv2-box">
+    <h3>📝 Permintaan Perubahan Data</h3>
+    <p class="authv2-muted">Nilai, kehadiran, perilaku, prestasi, dan raport hanya dapat dikelola Guru/Wali Kelas/Admin. Siswa hanya dapat mengajukan perubahan data diri dan menunggu persetujuan admin.</p>
+    <div id="authv2StudentRequests"></div>
+  </div>
+</section>
+
+<section id="authv2Profile" class="page">
+  <h2 class="title">Data Saya</h2>
+  <p class="sub">Ajukan perubahan data. Admin harus memverifikasi sebelum perubahan diterapkan.</p>
+  <div class="authv2-box">
+    <div class="authv2-grid">
+      <label>Nama Lengkap<input id="v2Name"></label>
+      <label>NISN<input id="v2Nisn"></label>
+      <label>NIS<input id="v2Nis"></label>
+      <label>Jenis Kelamin<select id="v2Gender"><option>Laki-laki</option><option>Perempuan</option></select></label>
+      <label>Kelas<input id="v2Level" readonly></label>
+      <label>Rombel<input id="v2Rombel"></label>
+      <label>Jurusan<input id="v2Major"></label>
+      <label>Tempat Lahir<input id="v2BirthPlace"></label>
+      <label>Tanggal Lahir<input id="v2BirthDate" type="date"></label>
+      <label>Nama Orang Tua/Wali<input id="v2Parent"></label>
+      <label>No. HP Wali<input id="v2Phone"></label>
+    </div>
+    <div class="actions"><button class="orange" onclick="authv2SubmitProfile()">Ajukan Perubahan untuk Verifikasi</button></div>
+  </div>
+</section>
+
+<section id="authv2Password" class="page">
+  <h2 class="title">Ubah Password</h2>
+  <p class="sub">Ganti password akun Anda secara mandiri.</p>
+  <div class="authv2-box" style="max-width:620px">
+    <div class="authv2-grid">
+      <label>Password Lama<input id="v2OldPass" type="password"></label>
+      <label>Password Baru<input id="v2NewPass" type="password"></label>
+      <label>Ulangi Password Baru<input id="v2NewPass2" type="password"></label>
+    </div>
+    <div class="actions"><button class="success" onclick="authv2ChangePassword()">Simpan Password</button></div>
+  </div>
+</section>
+
+<section id="authv2Requests" class="page">
+  <h2 class="title">Verifikasi Perubahan Data</h2>
+  <p class="sub">Admin memeriksa dan menyetujui/menolak perubahan yang diajukan siswa.</p>
+  <div class="authv2-box" id="authv2AdminRequests"></div>
+</section>
+
+<section id="authv2Accounts" class="page">
+  <h2 class="title">Akun Pengguna</h2>
+  <p class="sub">Admin mengelola akun siswa, guru, dan wali kelas.</p>
+  <div class="authv2-box">
+    <h3>➕ Buat Akun Guru/Wali Kelas</h3>
+    <div class="authv2-grid">
+      <label>Nama Guru<input id="v2TeacherName"></label>
+      <label>Username<input id="v2TeacherUser" placeholder="Contoh: guru.tkj"></label>
+      <label>Password Awal<input id="v2TeacherPass" value="123456"></label>
+      <label>Peran<select id="v2TeacherRole"><option>Guru Mapel</option><option>Wali Kelas</option><option>BK</option><option>Operator</option></select></label>
+      <label>Kelas Wali (opsional)<input id="v2TeacherClass" placeholder="Contoh: X TKJ 1"></label>
+    </div>
+    <div class="actions"><button class="success" onclick="authv2CreateTeacher()">Buat Akun Guru</button></div>
+  </div>
+  <div class="authv2-box">
+    <h3>👥 Daftar Akun</h3>
+    <div class="tablewrap"><table><thead><tr><th>Nama</th><th>Username</th><th>Role</th><th>Keterangan</th><th>Aksi</th></tr></thead><tbody id="authv2AccountTable"></tbody></table></div>
+  </div>
+</section>
+
+<script id="auth-v2-script">
+(function(){
+  const AUTHKEY='eAkademikUsersV2', SESSIONKEY='eAkademikSessionV2';
+  const oldRenderAll=window.renderAll;
+  function clone(o){return JSON.parse(JSON.stringify(o));}
+  function users(){
+    try{return JSON.parse(localStorage.getItem(AUTHKEY)||'[]')}
+    catch(e){return []}
+  }
+  function saveUsers(a){localStorage.setItem(AUTHKEY,JSON.stringify(a))}
+  function session(){try{return JSON.parse(localStorage.getItem(SESSIONKEY)||'null')}catch(e){return null}}
+  function setSession(u){localStorage.setItem(SESSIONKEY,JSON.stringify({id:u.id,username:u.username,role:u.role,studentId:u.studentId,teacherId:u.teacherId,name:u.name,classKey:u.classKey||''}))}
+  function current(){let s=session();return s}
+  function uid(){return 'u'+Date.now()+Math.floor(Math.random()*9999)}
+  function ensureUsers(){
+    let a=users(), changed=false;
+    if(!a.some(x=>x.username==='admin')){
+      a.push({id:'u-admin',username:'admin',password:'admin123',role:'admin',name:'Administrator'});
+      changed=true;
+    }
+    db.students.forEach(s=>{
+      let uname=String(s.nisn||s.nis||'').trim();
+      if(!uname)return;
+      if(!a.some(x=>x.username===uname)){
+        a.push({id:uid(),username:uname,password:'123456',role:'student',studentId:s.id,name:s.name});
+        changed=true;
+      }
+    });
+    db.teachers.forEach(t=>{
+      let uname=String(t.nip||'').trim() || ('guru'+String(t.id).slice(-5));
+      let role=t.role==='Wali Kelas'?'teacher':'teacher';
+      if(!a.some(x=>x.teacherId===t.id || x.username===uname)){
+        a.push({id:uid(),username:uname,password:'123456',role,name:t.name,teacherId:t.id});
+        changed=true;
+      }
+    });
+    if(changed)saveUsers(a);
+  }
+  function roleName(r){return r==='admin'?'Administrator':r==='student'?'Siswa':'Guru/Wali Kelas'}
+  function currentStudent(){let s=current();return s?.role==='student'?student(s.studentId):null}
+  function isStaff(){let s=current();return s && (s.role==='admin'||s.role==='teacher')}
+  function isAdmin(){return current()?.role==='admin'}
+  function pageBtn(id,label,icon){return `<button class="navbtn authv2-nav" data-authpage="${id}" onclick="show('${id}',this)">${icon} <span>${label}</span></button>`}
+  function configureNav(){
+    const nav=$('sideNav'); if(!nav)return;
+    nav.querySelectorAll('.authv2-nav').forEach(x=>x.remove());
+    const s=current();
+    if(!s)return;
+    if(s.role==='student'){
+      nav.insertAdjacentHTML('afterbegin',
+        pageBtn('authv2Student','Dashboard Saya','🏠')+
+        pageBtn('authv2Profile','Data Saya','👤')+
+        pageBtn('reportPage','Raport Saya','🖨️')+
+        pageBtn('authv2Password','Ubah Password','🔑'));
+      nav.querySelectorAll('.navbtn').forEach(b=>{
+        const onclick=b.getAttribute('onclick')||'';
+        if(!b.classList.contains('authv2-nav') && !onclick.includes("show('authv2")) b.style.display='none';
+      });
+    }else if(s.role==='teacher'){
+      nav.insertAdjacentHTML('afterbegin',pageBtn('dashboard','Dashboard','🏠')+pageBtn('authv2Password','Ubah Password','🔑'));
+      const allowed=["dashboard","students","grades","behavior","attendance","extra","reportPage","authv2Password"];
+      nav.querySelectorAll('.navbtn').forEach(b=>{
+        const oc=b.getAttribute('onclick')||'', m=oc.match(/show\('([^']+)/), id=m?m[1]:'';
+        if(!b.classList.contains('authv2-nav') && !allowed.includes(id)) b.style.display='none';
+      });
+    }else{
+      nav.insertAdjacentHTML('afterbegin',pageBtn('authv2Requests','Verifikasi Data','✅')+pageBtn('authv2Accounts','Akun Pengguna','👥')+pageBtn('authv2Password','Ubah Password','🔑'));
+    }
+    let bar=$('authv2UserBar');
+    if(!bar){
+      const header=document.querySelector('header');
+      if(header){
+        bar=document.createElement('div');bar.id='authv2UserBar';header.appendChild(bar);
+      }
+    }
+    if(bar)bar.innerHTML=`<span class="authv2-badge">👤 ${esc(s.name||s.username)} • ${roleName(s.role)}</span>`;
+  }
+  function studentOnlyRender(){
+    const s=currentStudent(); if(!s)return;
+    const grades=db.grades.filter(x=>String(x.sid)===String(s.id));
+    const att=db.attendance.filter(x=>String(x.sid)===String(s.id));
+    const beh=db.behavior.filter(x=>String(x.sid)===String(s.id));
+    const ext=db.extra.filter(x=>String(x.sid)===String(s.id));
+    $('authv2StudentSummary').innerHTML=`<h3>👨‍🎓 ${esc(s.name)}</h3><p><b>NISN:</b> ${esc(s.nisn||'-')} &nbsp; <b>NIS:</b> ${esc(s.nis||'-')}</p><p><b>Kelas:</b> ${s.level} / ${esc(s.rombel||'-')} &nbsp; <b>Jurusan:</b> ${esc(s.major||'-')}</p><span class="authv2-badge">Akses: Siswa</span>`;
+    const avg=grades.length?Math.round(grades.reduce((a,b)=>a+(+b.final||0),0)/grades.length):0;
+    $('authv2StudentAcademic').innerHTML=`<div class="grid"><div class="stat"><span>Jumlah Nilai</span><b>${grades.length}</b></div><div class="stat"><span>Rata-rata</span><b>${avg||'-'}</b></div><div class="stat"><span>Kehadiran</span><b>${att.length}</b></div><div class="stat"><span>Catatan Sikap</span><b>${beh.length}</b></div><div class="stat"><span>Prestasi/Ekstra</span><b>${ext.length}</b></div></div>`;
+    const req=(db.settings?.changeRequests||[]).filter(x=>String(x.studentId)===String(s.id));
+    $('authv2StudentRequests').innerHTML=req.length?req.slice().reverse().map(r=>`<div class="${r.status==='Menunggu'?'authv2-pending':'authv2-ok'}"><b>${r.status}</b> • ${new Date(r.createdAt).toLocaleString('id-ID')}<br>${esc(r.note||'Permintaan perubahan data')} ${r.reason?'<br><span class="authv2-muted">'+esc(r.reason)+'</span>':''}</div>`).join(''):'<span class="authv2-muted">Belum ada pengajuan perubahan.</span>';
+    ['Name','Nisn','Nis','Gender','Level','Rombel','Major','BirthPlace','BirthDate','Parent','Phone'].forEach(k=>{
+      const map={Name:'name',Nisn:'nisn',Nis:'nis',Gender:'gender',Level:'level',Rombel:'rombel',Major:'major',BirthPlace:'birthPlace',BirthDate:'birthDate',Parent:'parent',Phone:'phone'};
+      const el=$('v2'+k);if(el)el.value=s[map[k]]||'';
+    });
+  }
+  function pending(){
+    if(!db.settings.changeRequests)db.settings.changeRequests=[];
+    return db.settings.changeRequests;
+  }
+  function diffStudent(s){
+    const fields=['name','nisn','nis','gender','rombel','major','birthPlace','birthDate','parent','phone'];
+    const d={};fields.forEach(k=>{const el=$('v2'+k[0].toUpperCase()+k.slice(1));if(el&&String(el.value)!==String(s[k]||''))d[k]=el.value});
+    return d;
+  }
+  window.authv2SubmitProfile=function(){
+    const s=currentStudent();if(!s)return alert('Akun siswa tidak ditemukan.');
+    const changes=diffStudent(s);if(!Object.keys(changes).length)return alert('Tidak ada perubahan yang diajukan.');
+    const arr=pending();arr.push({id:uid(),studentId:s.id,changes,createdAt:new Date().toISOString(),status:'Menunggu',note:'Permintaan perubahan data siswa'});save();alert('Permintaan dikirim. Data baru akan diterapkan setelah diverifikasi admin.');studentOnlyRender();
+  };
+  window.authv2ChangePassword=function(){
+    const me=current(),old=$('v2OldPass').value,newp=$('v2NewPass').value,newp2=$('v2NewPass2').value;
+    if(!me)return;if(!old||!newp)return alert('Lengkapi password lama dan password baru.');
+    const a=users(),u=a.find(x=>x.id===me.id);
+    if(!u||u.password!==old)return alert('Password lama salah.');
+    if(newp.length<6)return alert('Password baru minimal 6 karakter.');
+    if(newp!==newp2)return alert('Ulangi password baru harus sama.');
+    u.password=newp;saveUsers(a);$('v2OldPass').value='';$('v2NewPass').value='';$('v2NewPass2').value='';alert('Password berhasil diubah.');
+  };
+  window.authv2Approve=function(id,ok){
+    if(!isAdmin())return alert('Hanya admin yang dapat memverifikasi.');
+    const r=pending().find(x=>x.id===id);if(!r)return;
+    if(ok){
+      const s=student(r.studentId);if(!s)return;
+      Object.assign(s,r.changes);r.status='Disetujui';r.approvedAt=new Date().toISOString();save();
+    }else{r.status='Ditolak';r.approvedAt=new Date().toISOString();save();}
+    renderAuthV2();
+  };
+  window.authv2Reset=function(id){
+    if(!isAdmin())return;
+    const a=users(),u=a.find(x=>x.id===id);if(!u)return;
+    u.password='123456';saveUsers(a);alert('Password direset menjadi 123456.');
+  };
+  window.authv2Delete=function(id){
+    if(!isAdmin())return;
+    const a=users().filter(x=>x.id!==id && x.username!=='admin');saveUsers(a);renderAuthV2();
+  };
+  window.authv2CreateTeacher=function(){
+    if(!isAdmin())return;
+    const name=$('v2TeacherName').value.trim(),username=$('v2TeacherUser').value.trim(),password=$('v2TeacherPass').value,role=$('v2TeacherRole').value,classKey=$('v2TeacherClass').value.trim();
+    if(!name||!username||!password)return alert('Nama, username, dan password wajib diisi.');
+    const a=users();if(a.some(x=>x.username.toLowerCase()===username.toLowerCase()))return alert('Username sudah digunakan.');
+    const t={id:id(),name,nip:username,subject:'',role};db.teachers.push(t);
+    a.push({id:uid(),username,password,role:'teacher',name,teacherId:t.id,classKey});saveUsers(a);save();
+    $('v2TeacherName').value='';$('v2TeacherUser').value='';$('v2TeacherPass').value='123456';$('v2TeacherClass').value='';
+    alert('Akun guru/wali kelas berhasil dibuat.');
+    renderAuthV2();
+  };
+  function renderAuthV2(){
+    const reqEl=$('authv2AdminRequests');
+    if(reqEl){
+      const arr=pending().filter(r=>r.status==='Menunggu');
+      reqEl.innerHTML=arr.length?arr.map(r=>{
+        const s=student(r.studentId);return `<div class="authv2-pending"><b>${esc(s?.name||'Siswa tidak ditemukan')}</b><br><span class="authv2-muted">${new Date(r.createdAt).toLocaleString('id-ID')}</span><div style="margin-top:8px">${Object.entries(r.changes).map(([k,v])=>`<div><b>${esc(k)}</b>: <span class="authv2-auth-old">${esc(s?.[k]??'-')}</span> → <b>${esc(v||'-')}</b></div>`).join('')}</div><div class="actions"><button class="success" onclick="authv2Approve('${r.id}',true)">✓ Setujui</button><button class="danger" onclick="authv2Approve('${r.id}',false)">✕ Tolak</button></div></div>`}).join(''):'<span class="authv2-muted">Tidak ada permintaan yang menunggu verifikasi.</span>';
+    }
+    const tab=$('authv2AccountTable');
+    if(tab){
+      const a=users();tab.innerHTML=a.map(u=>`<tr><td>${esc(u.name||'-')}</td><td><b>${esc(u.username)}</b></td><td>${roleName(u.role)}</td><td>${u.role==='student'?'Akun siswa • password awal 123456':u.username==='admin'?'Akun utama':''}</td><td>${u.username==='admin'?'—':`<button class="orange" onclick="authv2Reset('${u.id}')">Reset 123456</button> <button class="danger" onclick="authv2Delete('${u.id}')">Hapus</button>`}</td></tr>`).join('');
+    }
+  }
+  function teacherDashboard(){
+    const me=current(), t=me?.teacherId?db.teachers.find(x=>String(x.id)===String(me.teacherId)):null;
+    const classKey=me?.classKey||'';
+    const own=classKey?db.students.filter(s=>(s.level+' '+(s.rombel||'')).toLowerCase()===classKey.toLowerCase()):db.students;
+    const title=t?.role==='Wali Kelas'?`Dashboard Wali Kelas — ${classKey||'Kelas belum diatur'}`:`Dashboard Guru — ${esc(me?.name||'')}`;
+    const dash=$('dashboard'); if(dash) {
+      const h=dash.querySelector('.hero h2');if(h)h.innerHTML=title;
+      const inf=$('dashInfo');if(inf)inf.innerHTML=`<b>${own.length}</b> siswa dalam cakupan akun ini. Nilai, kehadiran, dan raport dapat dikelola sesuai menu yang tersedia.`;
+    }
+  }
+  const originalLogin=window.loginLocal;
+  window.loginLocal=function(){
+    const u=($('loginUser').value||'').trim(),p=$('loginPass').value||'';
+    ensureUsers();
+    const a=users(),me=a.find(x=>x.username.toLowerCase()===u.toLowerCase()&&x.password===p);
+    if(!me)return alert('Username atau password salah.');
+    setSession(me);localStorage.setItem('eAkademikLoggedIn','1');$('loginScreen').style.display='none';
+    configureNav();applyRoleAccess();renderAuthV2();if(me.role==='student')studentOnlyRender();if(me.role==='teacher')teacherDashboard();
+    show(me.role==='student'?'authv2Student':'dashboard',null);
+  };
+  window.logoutLocal=function(){localStorage.removeItem(SESSIONKEY);localStorage.removeItem('eAkademikLoggedIn');location.reload()};
+  function applyRoleAccess(){
+    const s=current(); if(!s)return;
+    document.querySelectorAll('#sideNav .navbtn').forEach(b=>{
+      if(b.classList.contains('authv2-nav'))return;
+      const oc=b.getAttribute('onclick')||'',m=oc.match(/show\('([^']+)/),pg=m?m[1]:'';
+      if(s.role==='admin'){b.style.display='';return}
+      if(s.role==='student'){b.style.display='none';return}
+      const allowed=['dashboard','students','grades','behavior','attendance','extra','reportPage'];
+      b.style.display=allowed.includes(pg)?'':'none';
+    });
+    // Student report selector is restricted to the logged-in student.
+    if(s.role==='student'){
+      const rs=$('rStudent'); if(rs){rs.innerHTML=`<option value="${s.studentId}">${esc(studentName(s.studentId))}</option>`;rs.value=s.studentId;}
+    }
+  }
+  window.renderAuthV2=renderAuthV2;
+  const oldShow=window.show;
+  window.show=function(id,btn){
+    oldShow(id,btn);
+    const s=current();
+    if(id==='authv2Student')studentOnlyRender();
+    if(id==='authv2Profile')studentOnlyRender();
+    if(id==='authv2Requests'||id==='authv2Accounts')renderAuthV2();
+    if(id==='dashboard'&&s?.role==='teacher')teacherDashboard();
+  };
+  // Extend renderAll without breaking the original app.
+  const baseRender=window.renderAll;
+  window.renderAll=function(){baseRender();ensureUsers();configureNav();applyRoleAccess();renderAuthV2();const s=current();if(s?.role==='student')studentOnlyRender();if(s?.role==='teacher')teacherDashboard();};
+  // Initial migration/setup.
+  ensureUsers();
+  const existing=localStorage.getItem('eAkademikLoggedIn');
+  const s=current();
+  if(existing==='1' && s){$('loginScreen').style.display='none';configureNav();applyRoleAccess();renderAuthV2();if(s.role==='student'){studentOnlyRender();setTimeout(()=>show('authv2Student'),0)}}
+  else {$('loginScreen').style.display='flex';}
+})();
+</script>
+
+<script id="auth-v3-policy">(function(){
+  // V3 policy: students may edit/request only personal biodata; academic records are staff-only.
+  const oldAddStudent=window.addStudent;
+  const oldDel=window.del;
+  const oldSaveGrade=window.saveGrade;
+  const oldSaveBehavior=window.saveBehavior;
+  const oldSaveAttendance=window.saveAttendance;
+  const oldSaveExtra=window.saveExtra;
+  const oldPromoteAll=window.promoteAll;
+  function staff(){try{const s=JSON.parse(localStorage.getItem('eAkademikSessionV2')||'null');return s&&(s.role==='admin'||s.role==='teacher')}catch(e){return false}}
+  function admin(){try{const s=JSON.parse(localStorage.getItem('eAkademikSessionV2')||'null');return s&&s.role==='admin'}catch(e){return false}}
+  function ensurePersonalFields(){
+    (db.students||[]).forEach(s=>{
+      if(s.address==null)s.address='';
+      if(s.guardianName==null)s.guardianName=s.parent||'';
+      if(s.guardianSignature==null)s.guardianSignature='';
+    });
+  }
+  function addAdminGuardianCard(){
+    if(document.getElementById('guardianDataCard'))return;
+    const page=document.getElementById('students'); if(!page)return;
+    const card=document.createElement('div');card.id='guardianDataCard';card.className='card';
+    card.innerHTML=`<h3>✍️ Data Wali & Tanda Tangan Raport</h3><p class="sub">Khusus Guru/Wali Kelas/Admin. Tanda tangan disimpan pada data siswa dan akan tampil saat cetak raport.</p><div class="grid"><label>Siswa<select id="guardianStudent"></select></label><label>Nama Wali<input id="guardianNameEdit"></label><label>Alamat Siswa<textarea id="guardianAddressEdit" rows="2"></textarea></label><label>TTD Wali (gambar)<input id="guardianSigFile" type="file" accept="image/*"></label></div><div id="guardianSigPreview" style="margin-top:10px"></div><div class="actions"><button class="success" onclick="saveGuardianDataV3()">Simpan Data Wali</button></div>`;
+    const tableCard=[...page.querySelectorAll('.card')].find(x=>x.querySelector('#studentTable'));
+    page.insertBefore(card,tableCard||null);
+    document.getElementById('guardianStudent').addEventListener('change',loadGuardianDataV3);
+    fillGuardianSelectV3();
+  }
+  function fillGuardianSelectV3(){
+    const el=document.getElementById('guardianStudent');if(!el)return;
+    el.innerHTML='<option value="">Pilih siswa</option>'+(db.students||[]).map(s=>`<option value="${s.id}">${esc(s.name)} — ${esc(s.nisn||s.nis||'')}</option>`).join('');
+  }
+  function loadGuardianDataV3(){
+    const s=student(document.getElementById('guardianStudent')?.value);if(!s)return;
+    ensurePersonalFields();
+    document.getElementById('guardianNameEdit').value=s.guardianName||s.parent||'';
+    document.getElementById('guardianAddressEdit').value=s.address||'';
+    document.getElementById('guardianSigPreview').innerHTML=s.guardianSignature?`<span class="authv2-muted">TTD tersimpan:</span><br><img src="${s.guardianSignature}" style="max-width:180px;max-height:80px;margin-top:6px;border:1px solid #ddd;padding:5px;background:#fff">`:'<span class="authv2-muted">Belum ada TTD wali.</span>';
+  }
+  window.saveGuardianDataV3=function(){
+    if(!staff())return alert('Hanya Guru/Wali Kelas/Admin yang dapat mengubah data wali.');
+    const s=student(document.getElementById('guardianStudent')?.value);if(!s)return alert('Pilih siswa.');
+    ensurePersonalFields();
+    s.guardianName=document.getElementById('guardianNameEdit').value.trim();
+    s.parent=s.guardianName;
+    s.address=document.getElementById('guardianAddressEdit').value.trim();
+    const f=document.getElementById('guardianSigFile').files[0];
+    const finish=()=>{save();loadGuardianDataV3();alert('Data wali dan TTD berhasil disimpan.');};
+    if(f){const r=new FileReader();r.onload=()=>{s.guardianSignature=r.result;finish()};r.readAsDataURL(f)}else finish();
+  };
+  window.addStudent=function(){
+    if(!staff())return alert('Hanya Guru/Wali Kelas/Admin yang dapat menambah data siswa.');
+    ensurePersonalFields();
+    const orig=oldAddStudent;
+    // Capture additional fields, then use original validator/storage.
+    const before=db.students.length; orig();
+    if(db.students.length>before){const s=db.students[db.students.length-1];s.address=($('sAddress')?.value||'').trim();s.guardianName=($('sParent')?.value||'').trim();s.guardianSignature='';save();fillGuardianSelectV3();}
+  };
+  window.del=function(type,idv){
+    if(!staff())return alert('Akun siswa tidak memiliki izin menghapus data.');
+    return oldDel(type,idv);
+  };
+  window.saveGrade=function(){if(!staff())return alert('Nilai hanya dapat diisi/diubah oleh Guru, Wali Kelas, atau Admin.');return oldSaveGrade();};
+  window.saveBehavior=function(){if(!staff())return alert('Data tingkah laku hanya dapat diisi/diubah oleh Guru, Wali Kelas, atau Admin.');return oldSaveBehavior();};
+  window.saveAttendance=function(){if(!staff())return alert('Kehadiran hanya dapat diisi/diubah oleh Guru, Wali Kelas, atau Admin.');return oldSaveAttendance();};
+  window.saveExtra=function(){if(!staff())return alert('Prestasi/ekstrakurikuler hanya dapat diisi/diubah oleh Guru, Wali Kelas, atau Admin.');return oldSaveExtra();};
+  window.promoteAll=function(){if(!staff())return alert('Kenaikan kelas hanya dapat diproses oleh Guru/Wali Kelas/Admin.');return oldPromoteAll();};
+
+  // Add address to the staff student form.
+  function addAddressField(){
+    if(document.getElementById('sAddress'))return;
+    const p=document.getElementById('sParent');if(!p)return;
+    const label=document.createElement('label');label.innerHTML='Alamat Lengkap<textarea id="sAddress" rows="2" placeholder="Dusun/RT/RW/Desa/Kecamatan/Kabupaten"></textarea>';
+    p.closest('label').insertAdjacentElement('afterend',label);
+  }
+  // Extend student profile: only biodata is editable, still through admin approval.
+  function addProfileFields(){
+    const grid=document.querySelector('#authv2Profile .authv2-grid');if(!grid||document.getElementById('v2Address'))return;
+    const birth=grid.querySelector('#v2BirthDate')?.closest('label');
+    const address=document.createElement('label');address.innerHTML='Alamat Lengkap<textarea id="v2Address" rows="2"></textarea>';
+    birth?.insertAdjacentElement('afterend',address);
+    const guardian=document.createElement('label');guardian.innerHTML='Nama Wali<input id="v2GuardianName">';
+    grid.querySelector('#v2Parent')?.closest('label')?.replaceWith(guardian);
+  }
+  const oldDiff=window.authv2SubmitProfile;
+  function patchProfileLogic(){
+    // Replace the profile submitter so address + guardian name are included in approval requests.
+    window.authv2SubmitProfile=function(){
+      let s;try{const ss=JSON.parse(localStorage.getItem('eAkademikSessionV2')||'null');s=ss?.role==='student'?student(ss.studentId):null}catch(e){}
+      if(!s)return alert('Akun siswa tidak ditemukan.');
+      const map={name:'v2Name',nisn:'v2Nisn',nis:'v2Nis',gender:'v2Gender',rombel:'v2Rombel',major:'v2Major',birthPlace:'v2BirthPlace',birthDate:'v2BirthDate',parent:'v2GuardianName',phone:'v2Phone',address:'v2Address'};
+      const changes={};Object.entries(map).forEach(([k,id])=>{const el=document.getElementById(id);if(el&&String(el.value)!==String(k==='parent'?(s.guardianName||s.parent||''):s[k]||''))changes[k]=el.value});
+      if(!Object.keys(changes).length)return alert('Tidak ada perubahan yang diajukan.');
+      if(!db.settings.changeRequests)db.settings.changeRequests=[];
+      db.settings.changeRequests.push({id:'u'+Date.now()+Math.floor(Math.random()*9999),studentId:s.id,changes,createdAt:new Date().toISOString(),status:'Menunggu',note:'Permintaan perubahan data diri siswa'});
+      save();alert('Permintaan data diri dikirim. Perubahan baru berlaku setelah diverifikasi admin.');
+      if(window.studentOnlyRender)window.studentOnlyRender();
+    };
+  }
+  // Make the student profile explicitly read-only for academic/identity identifiers that should not be casually edited.
+  function profilePermissions(){
+    const role=(()=>{try{return JSON.parse(localStorage.getItem('eAkademikSessionV2')||'null')?.role}catch(e){return null}})();
+    if(role==='student'){
+      ['v2Level'].forEach(id=>{const e=document.getElementById(id);if(e)e.readOnly=true});
+      // NIS/NISN/name can be requested for correction, but never directly saved.
+    }
+  }
+
+  // Override report rendering to include address, birth data, guardian and guardian signature.
+  window.renderReport=function(){
+    const rStudent=document.getElementById('rStudent'), rSem=document.getElementById('rSem'), out=document.getElementById('report');
+    if(!out)return; ensurePersonalFields();
+    const s=student(rStudent?.value), sem=rSem?.value||'Ganjil'; if(!s){out.innerHTML='';return;}
+    const gs=db.grades.filter(g=>String(g.sid)===String(s.id)&&g.sem===sem),bs=db.behavior.filter(b=>String(b.sid)===String(s.id)&&b.sem===sem),at=db.attendance.find(a=>String(a.sid)===String(s.id)&&a.sem===sem)||{sick:0,permit:0,absent:0,late:0},ex=db.extra.filter(e=>String(e.sid)===String(s.id));
+    const avg=gs.length?Math.round(gs.reduce((a,b)=>a+(+b.final||0),0)/gs.length):0;
+    const wali=s.guardianName||s.parent||'-';
+    out.innerHTML=`<div class="report"><div class="report-head"><img src="${logo}"><div><b>${esc(db.settings.school)}</b><div>${esc(db.settings.address)}</div><div>Tahun Pelajaran ${esc(db.settings.year)}</div></div></div><h2>LAPORAN HASIL BELAJAR</h2><table><tr><td>Nama</td><td>${esc(s.name)}</td><td>NISN</td><td>${esc(s.nisn)}</td></tr><tr><td>NIS</td><td>${esc(s.nis)}</td><td>Kelas/Rombel</td><td>${s.level} / ${esc(s.rombel)}</td></tr><tr><td>Jurusan</td><td>${esc(s.major)}</td><td>Semester</td><td>${sem}</td></tr><tr><td>Tempat, Tanggal Lahir</td><td>${esc(s.birthPlace||'-')}, ${esc(s.birthDate||'-')}</td><td>Jenis Kelamin</td><td>${esc(s.gender||'-')}</td></tr><tr><td>Alamat</td><td colspan="3">${esc(s.address||'-')}</td></tr><tr><td>Nama Orang Tua/Wali</td><td colspan="3">${esc(wali)}</td></tr></table><h3>Nilai Akademik</h3><table><thead><tr><th>No</th><th>Mata Pelajaran</th><th>Nilai Kuantitatif / Nilai Akhir</th><th>Deskripsi Kompetensi</th></tr></thead><tbody>${gs.map((g,i)=>`<tr><td>${i+1}</td><td>${esc(subjectName(g.sub))}</td><td><b>${g.final}</b></td><td class="competency"><b>Mampu:</b> ${esc(g.able||'-')}<br><b>Perlu bimbingan:</b> ${esc(g.need||'-')}<br><span class="small">${esc(g.desc||'')}</span></td></tr>`).join('')||'<tr><td colspan="4">Belum ada nilai.</td></tr>'}</tbody></table><div class="kpi"><div><b>Rata-rata</b><br>${avg||'-'}</div><div><b>Kehadiran</b><br>Sakit ${at.sick} • Izin ${at.permit} • Alpa ${at.absent} • Terlambat ${at.late}</div><div><b>Perilaku</b><br>${bs.map(b=>esc(b.aspect)+': '+esc(b.grade)).join('<br>')||'Belum ada data'}</div></div><h3>Ekstrakurikuler & Prestasi</h3><table><thead><tr><th>Jenis</th><th>Kegiatan</th><th>Predikat</th><th>Keterangan</th></tr></thead><tbody>${ex.map(e=>`<tr><td>${esc(e.type)}</td><td>${esc(e.name)}</td><td>${esc(e.grade)}</td><td>${esc(e.note)}</td></tr>`).join('')||'<tr><td colspan="4">Belum ada data.</td></tr>'}</tbody></table><br><table style="border:0"><tr><td style="text-align:center;border:0;width:33%">Orang Tua/Wali<br><div style="height:70px">${s.guardianSignature?`<img src="${s.guardianSignature}" style="max-width:160px;max-height:70px">`:''}</div><b>${esc(wali)}</b></td><td style="text-align:center;border:0;width:33%">Wali Kelas<br><br><br><b>${esc(db.settings.admin)}</b></td><td style="text-align:center;border:0;width:33%">Kepala Sekolah<br><br><br><b>${esc(db.settings.head)}</b></td></tr></table></div>`;
+  };
+
+  function migrateAndInit(){
+    ensurePersonalFields(); addAddressField(); addProfileFields(); patchProfileLogic(); addAdminGuardianCard();
+    if(typeof fillGuardianSelectV3==='function')fillGuardianSelectV3();
+    if(typeof loadGuardianDataV3==='function' && document.getElementById('guardianStudent')?.value)loadGuardianDataV3();
+    profilePermissions();
+  }
+  const oldRenderAll=window.renderAll;
+  window.renderAll=function(){oldRenderAll();migrateAndInit();};
+  document.addEventListener('DOMContentLoaded',()=>setTimeout(migrateAndInit,300));
+  setTimeout(migrateAndInit,500);
+})();
+</script>
+<script src="./firebase-config.js"></script>
+<script type="module" src="./online.js"></script>
 </body></html>
